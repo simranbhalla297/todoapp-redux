@@ -8,7 +8,8 @@ const todoReducer = (state = initialState, action) => {
 
     case DELETE_TODO:
       let newTodos = [...state];
-      console.log(newTodos);
+      newTodos = newTodos.filter((todo) => todo.id != action.payload);
+      return newTodos;
     default:
       return state;
   }

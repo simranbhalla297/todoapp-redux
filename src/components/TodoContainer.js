@@ -16,7 +16,8 @@ function TodoContainer(props) {
     setInputValue("");
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = (e, id) => {
+    e.preventDefault();
     console.log(id);
     dispatch(deleteTodo(id));
   };
@@ -32,24 +33,23 @@ function TodoContainer(props) {
           />
 
           <button type="submit">Submit</button>
-
-          {todoList.map((list, id) => {
-            return (
-              <div key={list.id}>
-                <h1>{list.id}</h1>
-                <p>{list.message}</p>
-                <button
-                  onClick={function () {
-                    handleDelete(list.id);
-                  }}
-                >
-                  delete
-                </button>
-              </div>
-            );
-          })}
         </div>
       </form>
+      {todoList.map((list, id) => {
+        return (
+          <div key={list.id}>
+            <h1>{list.id}</h1>
+            <p>{list.message}</p>
+            <button
+              onClick={function (e) {
+                handleDelete(e, list.id);
+              }}
+            >
+              delete
+            </button>
+          </div>
+        );
+      })}
     </div>
   );
 }
