@@ -16,8 +16,9 @@ function TodoContainer(props) {
     setInputValue("");
   };
 
-  const handleDelete = () => {
-    dispatch(deleteTodo());
+  const handleDelete = (id) => {
+    console.log(id);
+    dispatch(deleteTodo(id));
   };
   return (
     <div>
@@ -37,7 +38,13 @@ function TodoContainer(props) {
               <div key={list.id}>
                 <h1>{list.id}</h1>
                 <p>{list.message}</p>
-                <button onClick={handleDelete}>delete</button>
+                <button
+                  onClick={function () {
+                    handleDelete(list.id);
+                  }}
+                >
+                  delete
+                </button>
               </div>
             );
           })}
