@@ -1,13 +1,23 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { addTodo } from "./actions";
+import { addTodo, deleteTodo } from "./actions";
+import { useSelector, useDispatch } from "react-redux";
 
 function TodoContainer(props) {
+  const todoList = useSelector((state) => state.todo);
+
+  console.log(todoList);
+  const dispatch = useDispatch();
   const [inputvalue, setInputValue] = useState("");
   const handleClick = (e) => {
     e.preventDefault();
     console.log(inputvalue);
-    props.dispatch(addTodo(inputvalue));
+    dispatch(addTodo(inputvalue));
+    setInputValue("");
+  };
+
+  const handleDelete = () => {
+    dispatch(deleteTodo());
   };
   return (
     <div>
@@ -21,6 +31,16 @@ function TodoContainer(props) {
           />
 
           <button type="submit">Submit</button>
+
+          {todoList.map((list, id) => {
+            return (
+              <div key={list.id}>
+                <h1>{list.id}</h1>
+                <p>{list.message}</p>
+                <button onClick={handleDelete}>delete</button>
+              </div>
+            );
+          })}
         </div>
       </form>
     </div>
